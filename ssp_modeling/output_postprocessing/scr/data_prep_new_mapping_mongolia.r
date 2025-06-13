@@ -119,6 +119,10 @@ data_new <- data_new[order(data_new$strategy_id,data_new$CSC.Subsector,data_new$
 #write file 
 dir.out <- paste0("ssp_modeling/Tableau/data/")
 file.name <- "emissions_mongolia.csv"
+
+# temporal misings
+data_new <- subset(data_new, !is.na(value))
+
 write.csv(data_new,paste0(dir.out,file.name),row.names=FALSE)
 
 print('Finish:data_prep_new_mapping process')
