@@ -1,7 +1,7 @@
 rm(list=ls())
 
 ################################################################################
-# ASP
+# BaU
 ################################################################################
 
 te_all<-read.csv("ssp_modeling/output_postprocessing/data/emission_targets_mongolia.csv")
