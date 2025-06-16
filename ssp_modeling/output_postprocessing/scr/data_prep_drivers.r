@@ -1,5 +1,8 @@
 rm(list=ls())
 
+#load packages
+library(data.table)
+
 output.folder <- "ssp_modeling/ssp_run/"
 dir.data <- paste0(output.folder)
 file.name <-"mongolia.csv"
@@ -7,6 +10,9 @@ file.name <-"mongolia.csv"
 #load turkey data  
 data <- read.csv(paste0(dir.data,file.name)) 
 data <- subset(data,region=="mongolia")
+
+# temporal correction baseline condition BaU
+table(data$primary_id)
 
 #subset data for Ali, 
 
@@ -18,7 +24,6 @@ target_vars <- subset(vars,grepl("co2e_",vars)==TRUE)
 
 
 #read simulation 
-library(data.table)
 data<-data.table::data.table(data)
 DT.m1 = melt(data, id.vars = id_vars,
                    measure.vars = vars,
@@ -60,6 +65,9 @@ test2 <- subset (test2,Year>=2023)
 
 #read attribute primary
 att <- read.csv(paste0(output.folder,"ATTRIBUTE_PRIMARY.csv"))
+att <- subset(att, primary_id!=0)
+att$primary_id[att$primary_id==69069] <- 0
+att$strategy_id[att$strategy_id==6003] <- 0
 head(att)
 
 #merge 
@@ -70,14 +78,16 @@ dim(test2)
 
 #merge stratgy atts 
 atts <- read.csv(paste0(output.folder,"ATTRIBUTE_STRATEGY.csv"))
-head(atts)
+atts <- subset(atts, strategy_id!=0)
+atts$strategy_id[atts$strategy_id==6003] <- 0
+
 #merge 
 dim(test2)
 test2 <- merge(test2,atts[c("strategy_id","strategy")],by="strategy_id")
 dim(test2)
-#test2 <- subset(test2,primary_id%in%c(119119,127127))
-#test2 <- subset(test2,primary_id%in%c(0,127127,128128))
 
+# Stratey ids 
+table(test2$strategy_id)
 
 test2$Units <- "NA"
 test2$Data_Type <- "sisepuede simulation"

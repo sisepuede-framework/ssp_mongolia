@@ -1,5 +1,9 @@
 rm(list=ls())
 
+#load packages
+library(data.table)
+library(reshape2)
+
 file.name <-"mongolia.csv"
 iso_code3 <- "MNG"
 Country <- "mongolia"
@@ -45,8 +49,6 @@ data_new <- data [,c(id_vars,mapping$ids)]
 dim(data_new)
 
 #convert from wide to long 
-library(data.table)
-library(reshape2)
 data_new <- data.table(data_new)
 data_new <- reshape2::melt(data_new, id.vars = id_vars,
                    measure.vars = mapping$ids,
@@ -73,17 +75,28 @@ data_new$Gas <- do.call("rbind",strsplit(data_new$Edgar_Class,":"))[,2]
 
 #merge additional files  
 att <- read.csv(paste0(dir.data,"ATTRIBUTE_PRIMARY.csv"))
+att <- subset(att, primary_id!=0)
+att$primary_id[att$primary_id==69069] <- 0
+att$strategy_id[att$strategy_id==6003] <- 0
+head(att)
+
 dim(data_new)
+
 data_new <- merge(data_new,att,by="primary_id")
 dim(data_new)
+
 atts <- read.csv(paste0(output.folder,"ATTRIBUTE_STRATEGY.csv"))
+atts <- subset(atts, strategy_id!=0)
+atts$strategy_id[atts$strategy_id==6003] <- 0
+
+
+
 #merge 
 dim(data_new)
 data_new <- merge(data_new,atts[c("strategy_id","strategy")],by="strategy_id")
 dim(data_new)
 
 #melt edgar data 
-library(data.table)
 id_varsEd <- c("Code","CSC.Sector","CSC.Subsector","Gas","Edgar_Class")
 measure.vars_Ed <- subset(colnames(edgar),grepl("X",colnames(edgar))==TRUE)
 edgar <- data.table(edgar)
@@ -122,6 +135,8 @@ file.name <- "emissions_mongolia.csv"
 
 # temporal misings
 data_new <- subset(data_new, !is.na(value))
+
+table(data_new$strategy_id, exclude = NULL)
 
 write.csv(data_new,paste0(dir.out,file.name),row.names=FALSE)
 
