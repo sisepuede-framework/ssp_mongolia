@@ -173,10 +173,15 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# Ignore virtual environment directories
 *Zone.Identifier
 
 # ignore templates dir
 ssp_modeling/transformations/templates/
 .Rproj.user
 
+# Ignore macOS system files
 .DS_Store
+
+# Ignore Tableau temporary files
+~*.twbr

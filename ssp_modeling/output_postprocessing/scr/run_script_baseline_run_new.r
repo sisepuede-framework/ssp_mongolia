@@ -5,7 +5,7 @@ rm(list=ls())
 ################################################################################
 
 te_all<-read.csv("ssp_modeling/output_postprocessing/data/emission_targets_mongolia.csv")
-te_all <- subset(te_all,Subsector%in%c( "lvst","lsmm","agrc","ippu","waso","trww","frst","lndu","soil"))
+#te_all <- subset(te_all,Subsector%in%c( "lvst","lsmm","agrc","ippu","waso","trww","frst","lndu","soil"))
 target_country <- "MNG"
 te_all<-te_all[,c("Subsector","Gas","Vars","Edgar_Class",target_country)]
 te_all[,"tvalue"] <- te_all[,target_country]
@@ -19,6 +19,10 @@ output.file<-"sisepuede_results_sisepuede_mongolia_run.csv"
 
 data_all<-read.csv(paste0(output.folder,output.file))
 rall <- unique(data_all$region)
+
+# temporal correction baseline condition BaU
+data_all <- subset(data_all, primary_id!=0)
+data_all$primary_id[data_all$primary_id==69069] <- 0
 
 #set params of rescaling function
 dir.output <- output.folder
