@@ -63,4 +63,4 @@ results_all_pp = cb.cb_process_interactions(results_all)
 results_all_pp_shifted = cb.cb_shift_costs(results_all_pp)
 
 # Save the results
-results_all_pp_shifted.to_csv("/home/fabian_fuentes/repos/ssp_mongolia/ssp_modeling/cb/cb_resultados/cost_benefit_results_tornado.csv", index = False)
+results_all_pp_shifted.to_csv(dir_path.joinpath("ssp_modeling/cb/cb_results/cost_benefit_results_tornado.csv"), index = False)

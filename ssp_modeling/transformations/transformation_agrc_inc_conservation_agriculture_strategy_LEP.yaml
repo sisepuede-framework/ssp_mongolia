@@ -10,7 +10,7 @@ identifiers:
     \ agriculture"
 parameters:
   dict_categories_to_magnitude: null
-  magnitude_burned: 0.0
-  magnitude_removed: 0.5
+  magnitude_burned: 0.8
+  magnitude_removed: 0.8
   vec_implementation_ramp: null
 transformer: "TFR:AGRC:INC_CONSERVATION_AGRICULTURE"
