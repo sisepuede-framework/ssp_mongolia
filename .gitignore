@@ -185,3 +185,10 @@ ssp_modeling/transformations/templates/
 
 # Ignore Tableau temporary files
 ~*.twbr
+
+#Ignore R project files
+.Rhistory
+.RData
+.Ruserdata
+# Ignore RStudio project files
+.Rproj
