@@ -1,6 +1,6 @@
 rm(list=ls())
 
-output.folder <- "ssp_modeling/ssp_run/sisepuede_run_2025-06-20T20;16;38.965577/sisepuede_run_2025-06-20T20;16;38.965577/sisepuede_run_2025-06-20T20;16;38.965577_output_database"
+output.folder <- "/home/fabian_fuentes/repos/ssp_mongolia/ssp_modeling/ssp_run/mongolia_sisepuede_run_2025-06-22T11;05;26.207924/sisepuede_run_2025-06-22T11;05;26.207924/sisepuede_run_2025-06-22T11;05;26.207924_output_database"
 
 input.file <- read.csv(paste0(output.folder,"/MODEL_INPUT.csv"))
 output.file <- read.csv(paste0(output.folder,"/MODEL_OUTPUT.csv"))
@@ -18,6 +18,8 @@ data_all$time_period <- as.numeric(data_all$time_period)
 data_all <- data_all[order(data_all$primary_id,
                            data_all$time_period), ]
 
-write.csv(data_all,'ssp_modeling/ssp_run/2025-06-20/sisepuede_mongolia_run.csv',row.names=FALSE)
-write.csv(primary.file,'ssp_modeling/ssp_run/2025-06-20/ATTRIBUTE_PRIMARY.csv',row.names=FALSE)
-write.csv(strategy.file,'ssp_modeling/ssp_run/2025-06-20/ATTRIBUTE_STRATEGY.csv',row.names=FALSE)
+dir.output <- "ssp_modeling/ssp_run/2025-06-22"
+
+write.csv(data_all,paste0(dir.output,'/sisepuede_mongolia_run.csv'),row.names=FALSE)
+write.csv(primary.file,paste0(dir.output,'/ATTRIBUTE_PRIMARY.csv'),row.names=FALSE)
+write.csv(strategy.file,paste0(dir.output,'/ATTRIBUTE_STRATEGY.csv'),row.names=FALSE)
