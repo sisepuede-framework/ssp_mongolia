@@ -3,7 +3,7 @@ rm(list=ls())
 #load packages
 library(data.table)
 
-output.folder <- "ssp_modeling/ssp_run/2025-06-20/"
+output.folder <- "ssp_modeling/ssp_run/2025-06-22/"
 dir.data <- paste0(output.folder)
 file.name <-"mongolia.csv"
 
@@ -159,6 +159,6 @@ test2$value_new <- NULL
 
 #write
 #test2 <- subset(test2,strategy_id!=6005)
-write.csv(test2,"ssp_modeling/Tableau/data/drivers_mongolia_250620.csv", row.names=FALSE)
+write.csv(test2,"ssp_modeling/Tableau/data/drivers_mongolia_250622.csv", row.names=FALSE)
 
 print('Finish: data_prep_drivers process')

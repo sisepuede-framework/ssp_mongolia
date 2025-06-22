@@ -7,8 +7,7 @@ library(reshape2)
 file.name <-"mongolia.csv"
 iso_code3 <- "MNG"
 Country <- "mongolia"
-output.folder <- "ssp_modeling/ssp_run/2025-06-20/"
-dir.data <- output.folder
+output.folder <- "ssp_modeling/ssp_run/2025-06-22/"
 mapping <- read.csv("ssp_modeling/output_postprocessing/data/mapping_corrected_mongolia.csv")
 
 # modification of AG - Livestock:N2O subsector matching
@@ -20,7 +19,7 @@ edgar <- subset(edgar,Code==iso_code3)
 edgar$Edgar_Class<- paste(edgar$CSC.Subsector,edgar$Gas,sep=":")
 
 #load data  
-data <- read.csv(paste0(dir.data,file.name)) 
+data <- read.csv(paste0(output.folder,file.name)) 
 data <- subset(data,region==Country)
 
 #order data
@@ -81,7 +80,7 @@ data_new$Year <- data_new$time_period + 2015
 data_new$Gas <- do.call("rbind",strsplit(data_new$Edgar_Class,":"))[,2]
 
 #merge additional files  
-att <- read.csv(paste0(dir.data,"ATTRIBUTE_PRIMARY.csv"))
+att <- read.csv(paste0(output.folder,"ATTRIBUTE_PRIMARY.csv"))
 head(att)
 
 dim(data_new)
@@ -130,11 +129,11 @@ data_new <- data_new[order(data_new$strategy_id,data_new$CSC.Subsector,data_new$
 
 
 #write file 
-dir.out <- paste0("ssp_modeling/Tableau/data/")
-file.name <- "emissions_mongolia_250620.csv"
+dir.tableau <- paste0("ssp_modeling/Tableau/data/")
+file.name <- "emissions_mongolia_250622.csv"
 
 setorder(data_new, primary_id, Year)
 
-write.csv(data_new,paste0(dir.out,file.name),row.names=FALSE)
+write.csv(data_new,paste0(dir.tableau,file.name),row.names=FALSE)
 
 print('Finish:data_prep_new_mapping process')

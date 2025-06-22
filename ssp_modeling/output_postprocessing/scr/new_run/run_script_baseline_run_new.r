@@ -17,10 +17,10 @@ target_vars <- unlist(strsplit(te_all$Vars,":"))
 te_all$Vars[3] <- "emission_co2e_n2o_lsmm_direct_anaerobic_digester:emission_co2e_n2o_lsmm_direct_anaerobic_lagoon:emission_co2e_n2o_lsmm_direct_composting:emission_co2e_n2o_lsmm_direct_daily_spread:emission_co2e_n2o_lsmm_direct_deep_bedding:emission_co2e_n2o_lsmm_direct_dry_lot:emission_co2e_n2o_lsmm_direct_incineration:emission_co2e_n2o_lsmm_direct_liquid_slurry:emission_co2e_n2o_lsmm_direct_paddock_pasture_range:emission_co2e_n2o_lsmm_direct_poultry_manure:emission_co2e_n2o_lsmm_direct_storage_solid:emission_co2e_n2o_lsmm_indirect_anaerobic_digester:emission_co2e_n2o_lsmm_indirect_anaerobic_lagoon:emission_co2e_n2o_lsmm_indirect_composting:emission_co2e_n2o_lsmm_indirect_daily_spread:emission_co2e_n2o_lsmm_indirect_deep_bedding:emission_co2e_n2o_lsmm_indirect_dry_lot:emission_co2e_n2o_lsmm_indirect_incineration:emission_co2e_n2o_lsmm_indirect_liquid_slurry:emission_co2e_n2o_lsmm_indirect_paddock_pasture_range:emission_co2e_n2o_lsmm_indirect_poultry_manure:emission_co2e_n2o_lsmm_indirect_storage_solid"
 
 #ouputfile
-output.folder <- "ssp_modeling/ssp_run/2025-06-20/"
+dir.output <- "ssp_modeling/ssp_run/2025-06-22/"
 output.file<-"sisepuede_mongolia_run.csv"
 
-data_all<-read.csv(paste0(output.folder,output.file))
+data_all<-read.csv(paste0(dir.output,output.file))
 rall <- unique(data_all$region)
 #check primary ids
 table(data_all$primary_id)
@@ -29,7 +29,6 @@ table(data_all$primary_id)
 table(data_all$time_period)
 
 #set params of rescaling function
-dir.output <- output.folder
 initial_conditions_id <- "_0"
 time_period_ref <- 7
 
